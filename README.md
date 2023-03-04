@@ -1,12 +1,18 @@
 # mommy-rs
 [![GitHub](https://img.shields.io/github/license/natawie/mommy-rs?style=for-the-badge)](https://github.com/natawie/mommy-rs/blob/main/LICENSE)
+[![Crates.io](https://img.shields.io/crates/v/mommy-rs?style=for-the-badge)](https://crates.io/crates/mommy-rs)
 
 mommy can now support you with 🪖type-safety🪖 and 🚀blazingly-fast🚀 speed~ ❤️
 
 mommy will compliment you if things go well and will support you if something doesn't
 
 ## installation 📲
-currently mommy-rs isn't available anywhere but don't worry you can still install her with:
+currently mommy-rs is only available through [crates.io](https://crates.io/crates/mommy-rs)
+
+you can install mommy-rs from crates.io with:
+`cargo install mommy-rs`
+
+or from the repo directly with: 
 `cargo install --git https://github.com/natawie/mommy-rs`
 
 ## usage 📜
