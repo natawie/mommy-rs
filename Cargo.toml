@@ -1,0 +1,13 @@
+[package]
+name = "mommy-rs"
+description = "mommy can now support you with 🪖type-safety🪖 and 🚀blazingly-fast🚀 speed~ ❤️"
+version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+repository = "https://github.com/natawie/mommy-rs"
+license-file = "LICENSE"
+
+[dependencies]
+ansi_term = "0.12.1"
+rand = "0.8.5"
+structopt = "0.3.26"
