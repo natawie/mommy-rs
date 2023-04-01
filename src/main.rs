@@ -41,55 +41,55 @@ fn main() {
     //  {1.1} - mommy's accusative pronoun
     //  {1.2} - mommy's genitive pronoun
     // {2} - user's name
-    let positive_responses = env::var_os("RUST_MOMMY_POSITIVE_RESPONSES").map_or_else(|| vec![
+    let positive_responses: Vec<String> = env::var("RUST_MOMMY_POSITIVE_RESPONSES").map_or_else(|_| vec![
             "{0} is so proud of {1.2} little {2}~ ❤️".to_owned(),
             "good job my little {2}~ ❤️".to_owned(),
             "you're doing great, {2}~ ❤️".to_owned(),
             "{0} thinks {1.2} little {2} is doing a great job~ ❤️".to_owned(),
             "who's {0}'s little {2} ❤️".to_owned(),
-        ], |positive_responses| positive_responses.to_str().expect("can't convert OsString to &str").split(';').map(|s| s.to_owned()).collect());
+        ], |positive_responses| positive_responses.split(';').map(|s| s.to_owned()).collect());
 
-    let negative_responses = env::var_os("RUST_MOMMY_NEGATIVE_RESPONSES").map_or_else(|| vec![
+    let negative_responses = env::var("RUST_MOMMY_NEGATIVE_RESPONSES").map_or_else(|_| vec![
             "don't be so hard on yourself my little {2}~ ❤️".to_owned(),
             "it's okay my little {2}, {0} still loves you~ ❤️".to_owned(),
             "{0}'s sure {1.2} little {2} will get it next time~ ❤️".to_owned(),
             "don't worry {0} still loves you no matter what~ ❤️".to_owned(),
             "even {0} makes mistakes sometimes~ ❤️".to_owned(),
-        ], |negative_responses| negative_responses.to_str().expect("can't convert OsString to &str").split(';').map(|s| s.to_owned()).collect());
+        ], |negative_responses| negative_responses.split(';').map(|s| s.to_owned()).collect());
 
     // [nom, acc, gen]
-    let mommys_pronouns = env::var_os("RUST_MOMMY_PRONOUNS")
-        .map_or_else(|| vec![
+    let mommys_pronouns = env::var("RUST_MOMMY_PRONOUNS")
+        .map_or_else(|_| vec![
             "she".to_owned(),
             "her".to_owned(),
             "her".to_owned()
         ],
-        |mommys_pronouns| mommys_pronouns.to_str().expect("can't convert OsString to &str").split(';').map(|s| s.to_owned()).collect());
+        |mommys_pronouns| mommys_pronouns.split(';').map(|s| s.to_owned()).collect());
 
-    let mommys_name = env::var_os("RUST_MOMMY_NAME").map_or_else(|| "mommy".to_owned(), |mommys_name| mommys_name.into_string().expect("can't convert OsString to String"));
+    let mommys_name = env::var("RUST_MOMMY_NAME").unwrap_or_else(|_| "mommy".to_owned());
 
-    let users_names = env::var_os("RUST_MOMMY_USERS_NAMES").map_or_else(|| vec![
+    let users_names = env::var("RUST_MOMMY_USERS_NAMES").map_or_else(|_| vec![
         "kitten".to_owned(),
         "baby".to_owned(),
         "sweetie".to_owned(),
         "darling".to_owned(),
         "sweetheart".to_owned(),
         "girl".to_owned(),
-    ], |users_names| users_names.to_str().expect("can't convert OsString to &str").split(';').map(|s| s.to_owned()).collect());
+    ], |users_names| users_names.split(';').map(|s| s.to_owned()).collect());
 
-    let response_colour = env::var_os("RUST_MOMMY_RESPONSE_COLOUR").map_or((255, 204, 204), |response_colour| {
-        let temp = response_colour.to_str().expect("can't convert OsString to &str").split(',').map(|s| s.parse::<u8>().expect("not a number")).collect::<Vec<u8>>();
+    let response_colour = env::var("RUST_MOMMY_RESPONSE_COLOUR").map_or((255, 204, 204), |response_colour| {
+        let temp = response_colour.split(',').map(|s| s.parse::<u8>().expect("not a number")).collect::<Vec<u8>>();
         (*temp.first().expect("can't get R value"), *temp.get(1).expect("can't get G value"), *temp.get(2).expect("can't get B value"))
     });
 
-    let only_negative = env::var_os("RUST_MOMMY_ONLY_NEGATIVE")
+    let only_negative = env::var("RUST_MOMMY_ONLY_NEGATIVE")
         .map_or(false,|only_positive| 
-                only_positive.to_str().expect("can't convert OsString to &str").parse::<bool>().expect("not \"true\" or \"false\"")
+                only_positive.parse::<bool>().expect("not \"true\" or \"false\"")
                 );
 
-    let only_positive = env::var_os("RUST_MOMMY_ONLY_POSITIVE")
+    let only_positive = env::var("RUST_MOMMY_ONLY_POSITIVE")
         .map_or(false, |only_positive| 
-                only_positive.to_str().expect("can't convert OsString to &str").parse::<bool>().expect("not \"true\" or \"false\"")
+                only_positive.parse::<bool>().expect("not \"true\" or \"false\"")
                 );
 
     if app.exit_code == 0 && only_negative || app.exit_code != 0 && only_positive {
