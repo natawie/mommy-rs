@@ -5,8 +5,9 @@ version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 repository = "https://github.com/natawie/mommy-rs"
-tags = ["mommy", "shell", "cli"]
-license-file = "LICENSE"
+keywords = ["mommy", "shell", "cli"]
+categories = ["command-line-utilities"]
+license = "Apache-2.0"
 
 [dependencies]
 ansi_term = "0.12.1"
